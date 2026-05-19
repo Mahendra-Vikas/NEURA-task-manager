@@ -1,0 +1,73 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  @apply selection:bg-brand-teal selection:text-white;
+}
+
+body {
+  @apply font-sans antialiased;
+  scroll-behavior: smooth;
+}
+
+::-webkit-scrollbar {
+  @apply w-2 h-2;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-brand-teal rounded-full;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-brand-purple;
+}
+
+/* Glassmorphism effect */
+.glass {
+  @apply backdrop-blur-md bg-white/10 border border-white/20 rounded-lg;
+}
+
+.glass-dark {
+  @apply backdrop-blur-md bg-black/40 border border-white/10 rounded-lg;
+}
+
+/* Smooth transitions */
+.transition-smooth {
+  @apply transition-all duration-300 ease-in-out;
+}
+
+/* Gradient text */
+.gradient-text {
+  @apply bg-gradient-brand bg-clip-text text-transparent;
+}
+
+/* Skeleton loading */
+@keyframes skeleton-loading {
+  0% {
+    background-position: 1000px 0;
+  }
+  100% {
+    background-position: -1000px 0;
+  }
+}
+
+.skeleton {
+  animation: skeleton-loading 2s infinite;
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 1000px 100%;
+}
+
+/* Floating animation */
+.floating {
+  animation: float 3s ease-in-out infinite;
+}
+
+/* Glowing effect */
+.glow {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
