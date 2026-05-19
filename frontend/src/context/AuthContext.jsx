@@ -5,6 +5,16 @@ import { auth, googleProvider } from '../config/firebase'
 
 export const AuthContext = createContext()
 
+// Get API base URL - works in both development and production
+const getApiBaseUrl = () => {
+  const url = import.meta.env.VITE_API_URL
+  if (url) return url
+  // Fallback for development
+  return 'http://localhost:5000/api'
+}
+
+const API_BASE_URL = getApiBaseUrl()
+
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null)
   const [loading, setLoading] = useState(true)
@@ -33,7 +43,7 @@ export const AuthProvider = ({ children }) => {
       setLoading(true)
       setError(null)
       
-      const response = await fetch('/api/auth/login', {
+      const response = await fetch(`${API_BASE_URL}/auth/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password })
@@ -79,7 +89,7 @@ export const AuthProvider = ({ children }) => {
       const idToken = await firebaseUser.getIdToken()
 
       // Send token to backend for JWT generation
-      const response = await fetch('/api/auth/google', {
+      const response = await fetch(`${API_BASE_URL}/auth/google`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -124,7 +134,7 @@ export const AuthProvider = ({ children }) => {
       setLoading(true)
       setError(null)
       
-      const response = await fetch('/api/auth/signup', {
+      const response = await fetch(`${API_BASE_URL}/auth/signup`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ name, email, password })

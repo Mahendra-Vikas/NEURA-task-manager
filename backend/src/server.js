@@ -16,6 +16,30 @@ dotenv.config()
 const app = express()
 const PORT = process.env.PORT || 5000
 
+<<<<<<< HEAD
+// Middleware
+const allowedOrigins = [
+  "http://localhost:5173",
+  "https://neura-task-manager.vercel.app",
+  process.env.CLIENT_URL
+].filter(Boolean)
+
+app.use(cors({
+  origin: allowedOrigins,
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+}))
+
+// Handle preflight requests
+app.options('*', cors({
+  origin: allowedOrigins,
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+}))
+
+=======
 // =========================
 // CORS
 // =========================
@@ -31,6 +55,7 @@ app.use(cors({
 // =========================
 // Body Parser
 // =========================
+>>>>>>> f325cc2fe5aa07923fdae345458e17435b4e0939
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
