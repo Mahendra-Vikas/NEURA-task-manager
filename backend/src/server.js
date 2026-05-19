@@ -16,56 +16,43 @@ dotenv.config()
 const app = express()
 const PORT = process.env.PORT || 5000
 
-<<<<<<< HEAD
-// Middleware
+// =========================
+// CORS Configuration
+// =========================
 const allowedOrigins = [
-  "http://localhost:5173",
-  "https://neura-task-manager.vercel.app",
+  'http://localhost:5173',
+  'https://neura-task-manager.vercel.app',
   process.env.CLIENT_URL
 ].filter(Boolean)
 
 app.use(cors({
   origin: allowedOrigins,
   credentials: true,
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization']
 }))
 
-// Handle preflight requests
+// Handle Preflight Requests
 app.options('*', cors({
   origin: allowedOrigins,
   credentials: true,
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization']
 }))
 
-=======
 // =========================
-// CORS
+// Middleware
 // =========================
-app.use(cors({
-  origin: [
-    'http://localhost:5173',
-    'https://neura-task-manager.vercel.app'
-  ],
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
-  credentials: true
-}))
-
-// =========================
-// Body Parser
-// =========================
->>>>>>> f325cc2fe5aa07923fdae345458e17435b4e0939
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
 // =========================
-// Connect Database
+// Database Connection
 // =========================
 connectDB()
 
 // =========================
-// Routes
+// API Routes
 // =========================
 app.use('/api/auth', authRoutes)
 app.use('/api/users', userRoutes)
@@ -83,7 +70,7 @@ app.get('/api/health', (req, res) => {
 })
 
 // =========================
-// 404 Handler
+// 404 Route Handler
 // =========================
 app.use((req, res) => {
   res.status(404).json({
@@ -104,7 +91,7 @@ app.use((err, req, res, next) => {
   })
 })
 
-// Optional Custom Error Middleware
+// Optional Custom Middleware
 app.use(errorHandler)
 
 // =========================
